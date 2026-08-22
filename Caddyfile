@@ -1,0 +1,33 @@
+{
+	admin off
+	auto_https off
+	persist_config off
+	log {
+		output stderr
+		format console
+	}
+}
+
+:{$CADDY_PORT:8080} {
+	# Railway's HTTP healthcheck is anonymous, so it cannot pass through basic auth.
+	# This route proxies to PI WEB's own root so a 200 means the web process is
+	# genuinely serving, not merely that Caddy started. It returns the same static
+	# application shell any visitor would get before authenticating; no API route,
+	# no terminal, no filesystem path is reachable through it.
+	handle /healthz {
+		rewrite * /
+		reverse_proxy 127.0.0.1:8504
+	}
+
+	# Everything else - the UI, the API, the WebSocket bridge that carries terminals
+	# and sessions - is behind basic auth. Caddy proxies WebSockets natively, so the
+	# session-survives-disconnect behaviour is unaffected.
+	handle {
+		basic_auth {
+			{$PI_WEB_USERNAME} {$PI_WEB_PASSWORD_HASH}
+		}
+		reverse_proxy 127.0.0.1:8504 {
+			flush_interval -1
+		}
+	}
+}
