@@ -1,5 +1,9 @@
 # PI WEB on Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/pi-web-or-just-updated-pi-coding-agent-i?referralCode=Z1xivh&utm_medium=integration&utm_source=template&utm_campaign=generic)
+
+**Deploy on Railway:** [PI WEB template](https://railway.com/deploy/pi-web-or-just-updated-pi-coding-agent-i?referralCode=Z1xivh&utm_medium=integration&utm_source=template&utm_campaign=generic)
+
 Wrapper image for [PI WEB](https://github.com/jmfederico/pi-web) — a web UI that keeps
 [Pi Coding Agent](https://www.npmjs.com/package/@earendil-works/pi-coding-agent) sessions alive in
 real workspaces: projects, files, terminals, sessions.
